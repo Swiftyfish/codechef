@@ -1,29 +1,33 @@
 #include <bits/stdc++.h>
 using namespace std;
+const int mod = 998244353;
 int main() {
     int n, k;
     cin >> n >> k;
-    vector<int> l(k);
-    vector<int> r(k);
+    vector<pair<int, int>> in(k);
 
-    for (int i = 0; i < k; i++){
-        scanf("%d %d", &l[i], &r[i]);
+    for (pair<int, int>& p : in){
+        scanf("%d %d", &p.first, &p.second);
     }
 
-    vector<long long> dp(n+1, 0);
-    vector<long long> pre(n+1, 0);
-    dp[1] = 1;
-    pre[1] = 1;
-    for (int i = 0; i <= n; i++){
-        for (int j = 0; j < k; j++){
-            int l1 = i - l[j], r1 = i - r[j];
-            int left = min(l1, r1) - 1, right = max(l1, r1);
-            int k = 
-            pre[i] = pre[i - 1] + dp[i];
+    vector<int> dp(n), pref(n);
+    dp[0] = pref[0] = 1;
+
+    for (int i = 1; i < n; i++){
+        for (pair<int, int> p : in){
+            int L = max(0, i - p.second);
+            int R = i - p.first;
+            if (L <= R){
+                dp[i] += pref[R];
+                if (L >= 1) dp[i] -= pref[L-1];
+                dp[i] %= mod;
+                if(dp[i] < 0) dp[i] += mod;
+            }
         }
+        pref[i] = (pref[i - 1] + dp[i]) % mod; 
     }
 
-    cout << (dp[n] % 998244353);
+    cout << dp[n-1];
 
 
 }

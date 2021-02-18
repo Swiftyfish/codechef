@@ -1,0 +1,8 @@
+Problem 1:
+Fountains with varying range
+Minimum fountains switched on to cover area
+
+Problem 2:
+Buy and sell prices for stocks with a budget (savings)
+Maximum profit after selling.
+Buy and sell all at once (buy all then sell all)
